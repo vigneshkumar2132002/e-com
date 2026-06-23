@@ -5,6 +5,7 @@ import Head from 'next/head';
 // Modular Home Components
 import { HeroSection } from '../components/home/HeroSection';
 import { AboutIntroduction } from '../components/home/AboutIntroduction';
+import { ProductCategories } from '../components/home/ProductCategories';
 
 const Home = () => {
   return (
@@ -15,10 +16,11 @@ const Home = () => {
         <meta name="keywords" content="OEM Manufacturer, Private Label, Wet Wipes OEM, Surgical Dressings" />
       </Head>
 
-      <div className="w-full min-h-screen font-sans selection:bg-[#0976BC] selection:text-white relative pb-10">
+      <div className="home-dotted-bg w-full min-h-screen bg-white font-sans selection:bg-[#0976BC] selection:text-white relative pb-10">
         <main>
           <HeroSection />
           <AboutIntroduction />
+          <ProductCategories />
         </main>
       </div>
     </>

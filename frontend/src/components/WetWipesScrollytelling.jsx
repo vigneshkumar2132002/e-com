@@ -1,6 +1,5 @@
 'use client';
 import React, { useRef, useState, useEffect } from 'react';
-import { useScroll } from 'framer-motion';
 
 export const WetWipesScrollytelling = () => {
   const containerRef = useRef(null);
@@ -22,12 +21,6 @@ export const WetWipesScrollytelling = () => {
     window.addEventListener('resize', checkMobile);
     return () => window.removeEventListener('resize', checkMobile);
   }, []);
-
-  // 1. Hook scroll container progress (0 to 1)
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ["start start", "end end"]
-  });
 
   const targetProgress = useRef(0);
   const currentProgress = useRef(0);
@@ -91,10 +84,6 @@ export const WetWipesScrollytelling = () => {
     if (!canvas) return;
     const ctx = canvas.getContext('2d');
     if (!ctx) return;
-
-    // Sync transition refs
-    targetProgress.current = scrollYProgress.get();
-    currentProgress.current = scrollYProgress.get();
 
     const drawFrame = (progress) => {
       const frameIndex = Math.min(
@@ -176,19 +165,31 @@ export const WetWipesScrollytelling = () => {
     window.addEventListener('resize', handleResize);
     handleResize();
 
-    const unsubscribeScroll = scrollYProgress.on('change', (latest) => {
+    const updateScrollProgress = () => {
+      const container = containerRef.current;
+      if (!container) return;
+
+      const rect = container.getBoundingClientRect();
+      const totalScrollable = container.offsetHeight - window.innerHeight;
+      const latest = totalScrollable > 0
+        ? Math.min(Math.max(-rect.top / totalScrollable, 0), 1)
+        : 0;
+
       targetProgress.current = latest;
       startLoop();
-    });
+    };
+
+    updateScrollProgress();
+    window.addEventListener('scroll', updateScrollProgress, { passive: true });
 
     return () => {
       window.removeEventListener('resize', handleResize);
-      unsubscribeScroll();
+      window.removeEventListener('scroll', updateScrollProgress);
       if (animationFrameId) {
         cancelAnimationFrame(animationFrameId);
       }
     };
-  }, [isMobile, loading, images, scrollYProgress]);
+  }, [isMobile, loading, images]);
 
   // If mobile, show a high-performance static visual to prevent lag/stutters and scroll fatigue
   if (isMobile === null) {

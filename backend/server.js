@@ -67,33 +67,9 @@ app.use('/api', (req, res, next) => {
     return res.status(404).json({ message: 'Product not found (Offline Mode)' });
   }
 
-  // Fallback for User Login
-  if (req.method === 'POST' && req.path === '/users/login') {
-    const { email, password } = req.body;
-    const matchedUser = seedUsers.find(u => u.email === email && u.password === password);
-    if (matchedUser) {
-      const userRes = { ...matchedUser };
-      delete userRes.password;
-      userRes.token = 'mock-jwt-token-for-offline-mode';
-      return res.json(userRes);
-    }
-    return res.status(401).json({ message: 'Invalid email or password (Offline Mode)' });
-  }
-
-  // Fallback for B2B / B2C User Registration
-  if (req.method === 'POST' && (req.path === '/users/register/b2c' || req.path === '/users/register/b2b')) {
-    const { name, email } = req.body || {};
-    return res.status(201).json({
-      _id: 'mock-offline-user-id-' + Date.now(),
-      name: name || 'Mock User',
-      email: email || 'mock@example.com',
-      role: req.path.includes('b2b') ? 'b2b' : 'b2c',
-      token: 'mock-jwt-token-for-offline-mode',
-      b2bProfile: req.path.includes('b2b') ? {
-        companyName: req.body.companyName || 'Mock Company',
-        gstinOrTaxId: req.body.gstinOrTaxId || '29MOCK00000X1Z0',
-        verificationStatus: 'approved'
-      } : undefined
+  if (req.path.startsWith('/users')) {
+    return res.status(503).json({
+      message: 'Database connection unavailable. Account login, signup, and profile updates require MongoDB to be connected.'
     });
   }
 

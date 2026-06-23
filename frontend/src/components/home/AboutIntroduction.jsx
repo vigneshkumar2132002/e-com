@@ -52,7 +52,7 @@ export const AboutIntroduction = () => {
   }, []);
 
   return (
-    <section className="bg-white px-5 py-16 md:px-8 md:py-24 lg:py-28">
+    <section className="bg-transparent px-5 py-16 md:px-8 md:py-24 lg:py-28">
       <div className="mx-auto grid max-w-[1600px] items-center gap-12 lg:grid-cols-[1.1fr_0.9fr] lg:gap-12">
         <div className="relative">
           <div className="relative aspect-[4/3] overflow-hidden rounded-[28px] bg-[#EAF5FB] md:rounded-[40px]">
@@ -93,15 +93,12 @@ export const AboutIntroduction = () => {
               ))}
             </div>
           </div>
-
-          <div className="absolute -bottom-5 right-4 z-20 rounded-2xl border border-white/70 bg-white/95 px-5 py-4 shadow-[0_18px_50px_rgba(9,118,188,0.16)] backdrop-blur md:bottom-7 md:right-[-24px] md:px-6">
-            <p className="text-xs font-bold uppercase tracking-[0.18em] text-slate-500">Established</p>
-            <p className="mt-1 text-3xl font-bold tracking-tight text-[#0976BC]">1980</p>
-          </div>
         </div>
 
         <div>
-          <p className="mb-4 text-sm font-bold uppercase tracking-[0.2em] text-[#0976BC]">Who we are</p>
+          <p className="mb-5 inline-flex items-center rounded-full border border-[#0976BC]/15 bg-[#0976BC]/8 px-4 py-2 text-sm font-bold uppercase tracking-[0.08em] text-[#0976BC] shadow-[0_10px_28px_rgba(9,118,188,0.08)]">
+            Who we are
+          </p>
           <h2 className="max-w-2xl text-4xl font-bold leading-[1.05] tracking-[-0.04em] text-slate-950 md:text-5xl lg:text-[3.5rem]">
             Healthcare essentials made with precision and care.
           </h2>

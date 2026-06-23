@@ -1,5 +1,5 @@
 'use client';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import Lenis from 'lenis';
 import 'lenis/dist/lenis.css';
 import { usePathname } from 'next/navigation';
@@ -12,12 +12,26 @@ import { CartProvider } from '../context/CartContext';
 
 export default function AppLayout({ children }) {
   const pathname = usePathname();
+  const [isSmallScreen, setIsSmallScreen] = useState(false);
   const isHomePage = pathname === '/';
   const isWeyWipes = pathname === '/weywipes';
 
+  useEffect(() => {
+    const updateViewportState = () => {
+      setIsSmallScreen(window.innerWidth < 1024);
+    };
+
+    updateViewportState();
+    window.addEventListener('resize', updateViewportState);
+
+    return () => {
+      window.removeEventListener('resize', updateViewportState);
+    };
+  }, []);
+
   // 1. Initialize Lenis smooth scroll globally
   useEffect(() => {
-    if (window.innerWidth < 768) {
+    if (window.innerWidth < 1024) {
       return;
     }
 
@@ -67,6 +81,59 @@ export default function AppLayout({ children }) {
                     normalizedPath === '/about' ||
                     normalizedPath === '/careers' ||
                     isAdminPage;
+
+  if (isSmallScreen) {
+    return (
+      <div style={{
+        minHeight: '100vh',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        padding: '32px 20px',
+        background: '#f8fafc',
+        color: '#0f172a',
+        textAlign: 'center'
+      }}>
+        <div style={{
+          width: '100%',
+          maxWidth: '520px',
+          border: '1px solid rgba(15, 23, 42, 0.12)',
+          borderRadius: '24px',
+          background: '#ffffff',
+          padding: '42px 28px',
+          boxShadow: '0 24px 70px rgba(15, 23, 42, 0.10)'
+        }}>
+          <div style={{
+            fontSize: '72px',
+            lineHeight: '1',
+            fontWeight: 800,
+            letterSpacing: '-0.06em',
+            color: '#0976bc'
+          }}>
+            404
+          </div>
+          <h1 style={{
+            margin: '18px 0 10px',
+            fontSize: '28px',
+            lineHeight: '1.15',
+            fontWeight: 700,
+            letterSpacing: '-0.02em',
+            color: '#0f172a'
+          }}>
+            Desktop view only
+          </h1>
+          <p style={{
+            margin: 0,
+            fontSize: '15px',
+            lineHeight: 1.6,
+            color: '#64748b'
+          }}>
+            This page is currently available only on desktop screens. Please open it on a laptop or desktop browser.
+          </p>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <AuthProvider>

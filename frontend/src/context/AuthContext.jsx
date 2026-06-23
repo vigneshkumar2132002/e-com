@@ -8,11 +8,59 @@ export const AuthProvider = ({ children }) => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const storedUser = localStorage.getItem('bapuji_user');
-    if (storedUser) {
-      setUser(JSON.parse(storedUser));
-    }
-    setLoading(false);
+    const validateStoredUser = async () => {
+      const storedUser = localStorage.getItem('bapuji_user');
+      if (!storedUser) {
+        setLoading(false);
+        return;
+      }
+
+      let parsedUser;
+      try {
+        parsedUser = JSON.parse(storedUser);
+        if (!parsedUser?.token) {
+          localStorage.removeItem('bapuji_user');
+          setLoading(false);
+          return;
+        }
+
+        const res = await fetch('/api/users/profile', {
+          headers: {
+            'Authorization': `Bearer ${parsedUser.token}`
+          }
+        });
+
+        if (res.status === 401 || res.status === 403) {
+          localStorage.removeItem('bapuji_user');
+          setUser(null);
+          setLoading(false);
+          return;
+        }
+
+        if (!res.ok) {
+          setUser(parsedUser);
+          setLoading(false);
+          return;
+        }
+
+        const freshUser = await res.json();
+        const userWithToken = { ...freshUser, token: parsedUser.token };
+        setUser(userWithToken);
+        localStorage.setItem('bapuji_user', JSON.stringify(userWithToken));
+      } catch (error) {
+        console.error('Stored session validation failed:', error);
+        if (parsedUser?.token) {
+          setUser(parsedUser);
+        } else {
+          localStorage.removeItem('bapuji_user');
+          setUser(null);
+        }
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    validateStoredUser();
   }, []);
 
   const login = async (email, password) => {
@@ -82,7 +130,14 @@ export const AuthProvider = ({ children }) => {
         body: JSON.stringify(profileData)
       });
       const data = await res.json();
-      if (!res.ok) throw new Error(data.message || 'Update failed');
+      if (!res.ok) {
+        if (res.status === 401) {
+          setUser(null);
+          localStorage.removeItem('bapuji_user');
+          throw new Error('Your session expired. Please sign in again.');
+        }
+        throw new Error(data.message || 'Update failed');
+      }
       
       setUser(data);
       localStorage.setItem('bapuji_user', JSON.stringify(data));

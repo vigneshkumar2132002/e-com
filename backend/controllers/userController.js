@@ -4,7 +4,7 @@ import { sendB2BRegistrationReceivedEmail, sendB2BStatusUpdatedEmail } from '../
 
 const generateToken = (id) => {
   return jwt.sign({ id }, process.env.JWT_SECRET || 'bapuji_secret', {
-    expiresIn: '30d'
+    expiresIn: process.env.JWT_EXPIRES_IN || '10y'
   });
 };
 
@@ -35,6 +35,9 @@ export const registerB2C = async (req, res) => {
         name: user.name,
         email: user.email,
         role: user.role,
+        b2bProfile: user.b2bProfile,
+        shippingAddress: user.shippingAddress,
+        billingAddress: user.billingAddress,
         token: generateToken(user._id)
       });
     } else {
