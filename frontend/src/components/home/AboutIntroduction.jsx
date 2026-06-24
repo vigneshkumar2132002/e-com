@@ -3,7 +3,6 @@
 import { useEffect, useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { motion } from 'framer-motion';
 import { ArrowUpRight, CheckCircle2 } from 'lucide-react';
 
 const productionImages = [
@@ -57,18 +56,11 @@ export const AboutIntroduction = () => {
         <div className="relative">
           <div className="relative aspect-[4/3] overflow-hidden rounded-[28px] bg-[#EAF5FB] md:rounded-[40px]">
             {productionImages.map((image, index) => (
-              <motion.div
+              <div
                 key={image.src}
-                className="absolute inset-0"
-                initial={false}
-                animate={{
-                  opacity: index === activeImage ? 1 : 0,
-                  scale: index === activeImage ? 1.08 : 1,
-                }}
-                transition={{
-                  opacity: { duration: 0.8, ease: 'easeInOut' },
-                  scale: { duration: 3.2, ease: 'linear' },
-                }}
+                className={`absolute inset-0 transition-[opacity,transform] duration-1000 ${
+                  index === activeImage ? 'scale-[1.08] opacity-100' : 'scale-100 opacity-0'
+                }`}
                 style={{ zIndex: index === activeImage ? 2 : 1 }}
               >
                 <Image
@@ -79,7 +71,7 @@ export const AboutIntroduction = () => {
                   sizes="(max-width: 1024px) 100vw, 52vw"
                   priority
                 />
-              </motion.div>
+              </div>
             ))}
 
             <div className="absolute bottom-5 left-5 z-10 flex gap-1.5" aria-hidden="true">

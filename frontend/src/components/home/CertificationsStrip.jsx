@@ -1,7 +1,5 @@
 'use client';
 import React from 'react';
-import { motion } from 'framer-motion';
-import { CheckCircle2, ShieldCheck, Globe, BadgeCheck } from 'lucide-react';
 
 export const CertificationsStrip = () => {
   const certs = [
@@ -14,12 +12,8 @@ export const CertificationsStrip = () => {
     <div className="w-full bg-white py-7 md:py-10 px-4 md:px-6 relative z-20">
       <div className="max-w-[90rem] mx-auto flex flex-wrap justify-center items-center gap-5 md:gap-40">
         {certs.map((cert, idx) => (
-          <motion.div 
+          <div
             key={idx}
-            initial={{ opacity: 0, y: 10 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: idx * 0.1 }}
             className="flex items-center gap-3 md:gap-4"
           >
             <div className="bg-[#F0F8FF] rounded-2xl flex items-center justify-center w-14 h-14 md:w-20 md:h-20 flex-shrink-0 overflow-hidden">
@@ -29,7 +23,7 @@ export const CertificationsStrip = () => {
               <h4 className="font-bold text-gray-900 text-sm md:text-base">{cert.title}</h4>
               <p className="text-gray-500 text-xs md:text-sm">{cert.desc}</p>
             </div>
-          </motion.div>
+          </div>
         ))}
       </div>
     </div>

@@ -30,13 +30,10 @@ const Navbar = () => {
       }
       frameId = requestAnimationFrame(updateScrollState);
     };
-    const normalizedPath = (location.pathname || '').toLowerCase().replace(/\/$/, '');
-    if (normalizedPath === '' || normalizedPath === '/contact' || normalizedPath === '/oem' || normalizedPath === '/catalog' || normalizedPath === '/about' || normalizedPath === '/careers' || normalizedPath === '/register-b2b') {
-      window.addEventListener('scroll', handleScroll);
-      handleScroll();
-    } else {
-      frameId = requestAnimationFrame(() => setIsScrolled(true));
-    }
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    handleScroll();
+
     return () => {
       window.removeEventListener('scroll', handleScroll);
       if (frameId) {
@@ -111,8 +108,8 @@ const Navbar = () => {
   const isPendingB2B = user && user.role === 'b2b' && user.b2bProfile?.verificationStatus === 'pending';
 
   const normalizedPath = (location.pathname || '').toLowerCase().replace(/\/$/, '');
-  const isLightPage = normalizedPath === '/contact' || normalizedPath === '/oem' || normalizedPath === '/catalog' || normalizedPath === '/about';
-  const hasOriginalLogoBeforeScroll = normalizedPath === '/contact' || normalizedPath === '/catalog' || normalizedPath === '/oem' || normalizedPath === '/about';
+  const isLightPage = normalizedPath === '/contact' || normalizedPath === '/oem' || normalizedPath === '/catalog' || normalizedPath === '/about' || normalizedPath === '/weywipes' || normalizedPath === '/careers' || normalizedPath === '/register-b2b';
+  const hasOriginalLogoBeforeScroll = normalizedPath === '/contact' || normalizedPath === '/catalog' || normalizedPath === '/oem' || normalizedPath === '/about' || normalizedPath === '/weywipes' || normalizedPath === '/careers' || normalizedPath === '/register-b2b';
 
   return (
     <>

@@ -1,6 +1,5 @@
 'use client';
 import React, { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
 import { Check } from 'lucide-react';
 import Link from 'next/link';
 
@@ -27,21 +26,18 @@ export const HeroSection = () => {
     <section className="relative w-[calc(100%-1rem)] md:w-[calc(100%-1.5rem)] min-h-[calc(100svh-72px)] md:min-h-[calc(100vh-2rem)] mx-auto mt-[64px] md:mt-3 bg-black overflow-hidden font-sans rounded-b-3xl md:rounded-b-[40px]">
       {/* Animated Background Images */}
       <div className="absolute inset-0 z-0 bg-black">
-        <AnimatePresence>
-          <motion.img
-            key={currentIndex}
-            src={heroImages[currentIndex]}
+        {heroImages.map((image, index) => (
+          <img
+            key={image}
+            src={image}
             alt="Bapuji Surgicals Products"
-            className="absolute inset-0 w-full h-full object-contain md:object-cover opacity-75 md:opacity-60 p-8 pt-12 pb-36 md:p-0"
-            initial={{ opacity: 0, scale: 1 }}
-            animate={{ opacity: 1, scale: 1.05 }}
-            exit={{ opacity: 0, scale: 1.1 }}
-            transition={{
-              opacity: { duration: 1 },
-              scale: { duration: 3, ease: "linear" }
-            }}
+            className={`absolute inset-0 h-full w-full object-contain p-8 pt-12 pb-36 transition-[opacity,transform] duration-1000 md:object-cover md:p-0 ${
+              currentIndex === index ? 'scale-105 opacity-75 md:opacity-60' : 'scale-100 opacity-0'
+            }`}
+            loading={index === 0 ? 'eager' : 'lazy'}
+            decoding="async"
           />
-        </AnimatePresence>
+        ))}
         {/* Soft overlay shade for text legibility */}
         <div className="absolute inset-0 bg-black/20 z-10 pointer-events-none"></div>
         <div className="absolute inset-0 bg-gradient-to-r from-black/55 md:from-black/70 to-transparent z-10 pointer-events-none"></div>
@@ -51,11 +47,7 @@ export const HeroSection = () => {
       {/* Content Container - Adjusted padding to match the reference */}
       <div className="absolute inset-0 z-20 flex flex-col justify-end px-5 md:px-20 pb-6 md:pb-12">
         <div className="max-w-3xl">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, ease: "easeOut" }}
-          >
+          <div>
             {/* Top Tagline */}
             <div className="flex items-center gap-2 text-white/90 text-sm md:text-lg font-semibold mb-4 md:mb-6">
               <Check className="w-4 h-4 md:w-5 md:h-5" />
@@ -99,7 +91,7 @@ export const HeroSection = () => {
                 <span className="text-white font-bold">Private label manufacturing</span>
               </div>
             </div>
-          </motion.div>
+          </div>
         </div>
       </div>
       

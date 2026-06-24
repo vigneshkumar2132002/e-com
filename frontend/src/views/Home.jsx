@@ -5,7 +5,9 @@ import Head from 'next/head';
 // Modular Home Components
 import { HeroSection } from '../components/home/HeroSection';
 import { AboutIntroduction } from '../components/home/AboutIntroduction';
+import { WhyChooseUs } from '../components/home/WhyChooseUs';
 import { ProductCategories } from '../components/home/ProductCategories';
+import { WetWipesRange } from '../components/home/WetWipesRange';
 
 const Home = () => {
   return (
@@ -20,7 +22,9 @@ const Home = () => {
         <main>
           <HeroSection />
           <AboutIntroduction />
+          <WhyChooseUs />
           <ProductCategories />
+          <WetWipesRange />
         </main>
       </div>
     </>

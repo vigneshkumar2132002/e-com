@@ -2,7 +2,6 @@
 
 import React from 'react';
 import Link from 'next/link';
-import { motion } from 'framer-motion';
 import { ArrowRight, Boxes, Factory, Layers3, ShieldCheck } from 'lucide-react';
 
 const productLines = [
@@ -63,17 +62,17 @@ export const ProductCategories = () => {
             <h2 className="m-0 text-[3.65rem] font-bold leading-[1.02] tracking-[-0.05em] text-slate-950">
               Complete healthcare supply lines in one place.
             </h2>
-          </div>
-
-          <div className="flex max-w-[780px] flex-col items-stretch gap-7 justify-self-end">
-            <p className="m-0 max-w-[720px] text-lg leading-8 text-slate-600">
+            <p className="mt-7 max-w-[640px] text-lg leading-8 text-slate-600">
               Explore Bapuji Surgicals product families across wound care, hygiene wipes, sterilization packaging and protective medical supplies, with OEM support for private label programs.
             </p>
-            <div className="grid w-full grid-cols-2 gap-3">
+          </div>
+
+          <div className="flex w-full max-w-[900px] flex-col items-stretch justify-self-end">
+            <div className="grid w-full grid-cols-2 gap-4">
               {capabilities.map((item) => {
                 const Icon = item.icon;
                 return (
-                  <div key={item.text} className="flex h-[52px] items-center gap-3 rounded-full border border-slate-200 bg-white px-5 text-sm font-bold text-slate-700 shadow-[0_10px_24px_rgba(15,23,42,0.035)]">
+                  <div key={item.text} className="flex h-[56px] min-w-[285px] items-center gap-4 rounded-full border border-slate-200 bg-white px-7 text-sm font-bold text-slate-700 shadow-[0_10px_24px_rgba(15,23,42,0.035)]">
                     <Icon className="h-4 w-4 text-[#0976BC]" strokeWidth={2.1} />
                     <span>{item.text}</span>
                   </div>
@@ -84,13 +83,9 @@ export const ProductCategories = () => {
         </div>
 
         <div className="grid grid-cols-4 gap-5">
-          {productLines.map((line, index) => (
-            <motion.article
+          {productLines.map((line) => (
+            <article
               key={line.title}
-              initial={{ opacity: 0, y: 24 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: '-80px' }}
-              transition={{ duration: 0.55, delay: index * 0.08 }}
               className="group flex min-h-[520px] flex-col overflow-hidden rounded-[28px] border border-slate-200 bg-white shadow-[0_24px_70px_rgba(15,23,42,0.06)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_34px_90px_rgba(15,23,42,0.12)]"
             >
               <Link href={line.href} className="flex h-full flex-col text-slate-950 no-underline hover:text-slate-950">
@@ -131,7 +126,7 @@ export const ProductCategories = () => {
                   </div>
                 </div>
               </Link>
-            </motion.article>
+            </article>
           ))}
         </div>
 
