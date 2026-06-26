@@ -8,6 +8,8 @@ import { AboutIntroduction } from '../components/home/AboutIntroduction';
 import { WhyChooseUs } from '../components/home/WhyChooseUs';
 import { ProductCategories } from '../components/home/ProductCategories';
 import { WetWipesRange } from '../components/home/WetWipesRange';
+import { CompanyFAQ } from '../components/home/CompanyFAQ';
+import { TestimonialsSection } from '../components/home/TestimonialsSection';
 
 const Home = () => {
   return (
@@ -25,6 +27,8 @@ const Home = () => {
           <WhyChooseUs />
           <ProductCategories />
           <WetWipesRange />
+          <CompanyFAQ />
+          <TestimonialsSection />
         </main>
       </div>
     </>

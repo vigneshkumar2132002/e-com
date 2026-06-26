@@ -719,6 +719,7 @@ const ModernHeritage = () => {
 };
 
 const About = () => {
+  const heroVideoRef = useRef(null);
   const pillars = [
     {
       title: 'Customization',
@@ -763,6 +764,38 @@ const About = () => {
     }
   };
 
+  useEffect(() => {
+    const video = heroVideoRef.current;
+    if (!video) return;
+
+    const startAt = 0;
+    const endAt = 163;
+
+    const playSegment = () => {
+      if (video.currentTime < startAt || video.currentTime >= endAt) {
+        video.currentTime = startAt;
+      }
+      video.muted = true;
+      video.play().catch(() => {});
+    };
+
+    const handleTimeUpdate = () => {
+      if (video.currentTime >= endAt) {
+        video.currentTime = startAt;
+        video.play().catch(() => {});
+      }
+    };
+
+    video.addEventListener('loadedmetadata', playSegment);
+    video.addEventListener('timeupdate', handleTimeUpdate);
+    playSegment();
+
+    return () => {
+      video.removeEventListener('loadedmetadata', playSegment);
+      video.removeEventListener('timeupdate', handleTimeUpdate);
+    };
+  }, []);
+
   return (
     <div className="about-page">
       <style dangerouslySetInnerHTML={{ __html: `
@@ -772,6 +805,10 @@ const About = () => {
           font-family: var(--font-body), -apple-system, BlinkMacSystemFont, sans-serif;
           overflow-x: hidden;
           padding-bottom: 120px;
+        }
+
+        .about-page .about-video-hero .cinematic-content {
+          transform: translateY(46px);
         }
 
         .about-main {
@@ -1174,15 +1211,33 @@ const About = () => {
       {/* Cinematic Hero Section aligned like Home page */}
       <div className="cinematic-hero-wrapper">
         <div 
-          className="cinematic-hero-container"
+          className="cinematic-hero-container about-video-hero"
           style={{
             position: 'relative',
             overflow: 'hidden',
-            backgroundImage: "url('/img/medical_factory_hero.png')", 
-            backgroundSize: 'cover', 
-            backgroundPosition: 'center'
+            backgroundColor: '#010d16'
           }}
         >
+          <video
+            ref={heroVideoRef}
+            className="about-hero-video"
+            src="/video/bapuji-corporate-hero.mp4"
+            muted
+            autoPlay
+            playsInline
+            preload="metadata"
+            aria-label="Bapuji Surgicals corporate video"
+            style={{
+              position: 'absolute',
+              inset: 0,
+              width: '100%',
+              height: '100%',
+              objectFit: 'cover',
+              objectPosition: 'center 78%',
+              transform: 'scale(1.16)',
+              zIndex: 0
+            }}
+          />
           {/* Premium dark gradient overlay for text legibility */}
           <div style={{
             position: 'absolute',

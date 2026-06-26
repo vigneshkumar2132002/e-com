@@ -44,7 +44,7 @@ const wipes = [
 
 export const WetWipesRange = () => {
   return (
-    <section className="px-4 pb-20 sm:px-6 lg:px-8 lg:pb-28">
+    <section className="px-4 pb-8 sm:px-6 lg:px-8 lg:pb-12">
       <div className="mx-auto max-w-[1600px]">
         <div className="relative left-1/2 mb-10 w-screen -translate-x-1/2 border-y border-slate-200 bg-white/70 backdrop-blur-sm">
           <div className="mx-auto flex max-w-[1600px] flex-col justify-between gap-6 px-4 py-8 sm:px-6 lg:flex-row lg:items-end lg:px-8">
