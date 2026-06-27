@@ -603,7 +603,6 @@ const ModernHeritage = () => {
         }
         @media (max-width: 767px) {
           .mh-card {
-            transform: none !important;
             grid-template-columns: 1fr;
           }
           .mh-card-header {
@@ -615,6 +614,187 @@ const ModernHeritage = () => {
           }
           .mh-left-image {
             height: 300px;
+          }
+        }
+
+        /* Minimal heritage refresh */
+        .modern-heritage-section {
+          padding: clamp(72px, 7vw, 110px) 0;
+          background: #ffffff;
+        }
+        .modern-heritage-section::before {
+          opacity: 0.35;
+          mask-image: linear-gradient(180deg, rgba(0,0,0,0.45), transparent 70%);
+        }
+        .mh-container {
+          width: min(96vw, 1660px);
+          grid-template-columns: minmax(430px, 0.74fr) minmax(700px, 1.18fr);
+          gap: clamp(54px, 5vw, 120px);
+          align-items: start;
+        }
+        .mh-left {
+          position: relative;
+          top: auto;
+          padding-top: 8px;
+        }
+        .mh-title-wrap {
+          margin-bottom: 28px;
+        }
+        .mh-eyebrow {
+          margin-bottom: 18px;
+          font-size: 0.78rem;
+          letter-spacing: 0.18em;
+        }
+        .mh-title {
+          max-width: 720px;
+          font-size: clamp(2.5rem, 3.45vw, 4rem);
+          line-height: 1.04;
+          letter-spacing: 0;
+          white-space: normal;
+        }
+        .mh-title-line {
+          display: block;
+          white-space: nowrap;
+        }
+        .mh-lead {
+          max-width: 640px;
+          margin-top: 28px;
+          font-size: 1rem;
+          line-height: 1.75;
+          color: rgba(7, 25, 35, 0.62);
+        }
+        .mh-stats-grid {
+          max-width: 720px;
+          display: grid;
+          grid-template-columns: repeat(3, minmax(0, 1fr));
+          gap: 12px;
+          margin: 34px 0 0;
+        }
+        .mh-stat-box {
+          min-height: 0;
+          gap: 7px;
+          padding: 18px 18px 16px;
+          border: 1px solid rgba(9, 118, 188, 0.12);
+          border-radius: 18px;
+          background: rgba(247, 251, 253, 0.74);
+          box-shadow: none;
+        }
+        .mh-stat-num {
+          font-size: clamp(1.95rem, 3vw, 2.7rem);
+          letter-spacing: -0.045em;
+        }
+        .mh-stat-label {
+          font-size: 0.72rem;
+          line-height: 1.35;
+          color: rgba(7, 25, 35, 0.52);
+        }
+        .mh-left-image {
+          display: none;
+        }
+        .mh-right {
+          margin-top: 0;
+          gap: 0;
+          overflow: hidden;
+          border: 1px solid rgba(9, 118, 188, 0.11);
+          border-radius: 28px;
+          background: rgba(255, 255, 255, 0.82);
+          box-shadow: 0 24px 70px rgba(9, 118, 188, 0.08);
+          backdrop-filter: blur(14px);
+        }
+        .mh-card {
+          grid-template-columns: 82px 1fr;
+          gap: 22px;
+          padding: 30px 34px;
+          border: 0;
+          border-radius: 0;
+          border-bottom: 1px solid rgba(9, 118, 188, 0.1);
+          background: transparent;
+          box-shadow: none;
+          will-change: transform, opacity;
+        }
+        .mh-card:last-child {
+          border-bottom: 0;
+        }
+        .mh-card::before,
+        .mh-card::after {
+          display: none;
+        }
+        .mh-card.is-active,
+        .mh-card:hover {
+          background: linear-gradient(90deg, rgba(9, 118, 188, 0.06), rgba(255, 255, 255, 0));
+          border-color: rgba(9, 118, 188, 0.12);
+          box-shadow: none;
+        }
+        .mh-card-header {
+          align-items: flex-start;
+          gap: 12px;
+        }
+        .mh-card-num {
+          width: 48px;
+          height: 48px;
+          border-radius: 16px;
+          background: rgba(9, 118, 188, 0.08);
+          font-size: 0.95rem;
+        }
+        .mh-card-icon {
+          width: 34px;
+          height: 34px;
+          background: rgba(9, 118, 188, 0.08);
+          color: #0976BC;
+        }
+        .mh-card-meta {
+          margin-bottom: 10px;
+          font-size: 0.72rem;
+          letter-spacing: 0.15em;
+        }
+        .mh-card-title {
+          margin-bottom: 10px;
+          font-size: clamp(1.25rem, 1.6vw, 1.55rem);
+          letter-spacing: -0.035em;
+          color: #071923;
+        }
+        .mh-card-text {
+          max-width: 760px;
+          font-size: 1rem;
+          line-height: 1.72;
+          color: rgba(7, 25, 35, 0.6);
+        }
+
+        @media (max-width: 1023px) {
+          .mh-container {
+            grid-template-columns: 1fr;
+            gap: 34px;
+          }
+          .mh-stats-grid {
+            max-width: none;
+          }
+        }
+
+        @media (max-width: 767px) {
+          .modern-heritage-section {
+            padding: 64px 0;
+          }
+          .mh-container {
+            width: min(100% - 32px, 620px);
+          }
+          .mh-title {
+            font-size: clamp(2.25rem, 12vw, 3.4rem);
+            letter-spacing: -0.04em;
+          }
+          .mh-title-line {
+            white-space: normal;
+          }
+          .mh-stats-grid {
+            grid-template-columns: 1fr;
+          }
+          .mh-card {
+            grid-template-columns: 1fr;
+            padding: 24px;
+          }
+          .mh-card-header {
+            flex-direction: row;
+            align-items: center;
+            justify-content: flex-start;
           }
         }
       `}} />
@@ -631,7 +811,8 @@ const ModernHeritage = () => {
           >
             <span className="mh-eyebrow">Our Heritage</span>
             <h2 className="mh-title">
-              A legacy of precision since 1980.
+              <span className="mh-title-line">A legacy of</span>
+              <span className="mh-title-line">precision since 1980.</span>
             </h2>
             <p className="mh-lead">
               Four decades of surgical supply experience, redesigned around modern manufacturing, reliable quality systems, and healthcare partnerships that scale.
@@ -689,12 +870,12 @@ const ModernHeritage = () => {
               key={idx}
               className={`mh-card ${activeStage === idx ? 'is-active' : ''}`}
               style={{ '--idx': idx }}
-              initial={{ opacity: 0, y: 40 }}
-              whileInView={{ opacity: 1, y: 0 }}
+              initial={{ opacity: 0, x: 90 }}
+              whileInView={{ opacity: 1, x: 0 }}
               onViewportEnter={() => setActiveStage(idx)}
               onMouseEnter={() => setActiveStage(idx)}
               viewport={{ once: true, margin: '-100px' }}
-              transition={{ duration: 0.7, delay: idx * 0.1, ease: [0.22, 1, 0.36, 1] }}
+              transition={{ duration: 0.85, delay: idx * 0.14, ease: [0.16, 1, 0.3, 1] }}
             >
               {(() => {
                 const Icon = stage.icon;

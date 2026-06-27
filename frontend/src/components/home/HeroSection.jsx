@@ -12,18 +12,64 @@ const heroImages = [
   "/img/after_shave_wipes_1780255231169.png"
 ];
 
+const SLIDE_INTERVAL_MS = 3600;
+
 export const HeroSection = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
 
   useEffect(() => {
+    heroImages.forEach((src) => {
+      const image = new window.Image();
+      image.src = src;
+    });
+  }, []);
+
+  useEffect(() => {
     const timer = setInterval(() => {
       setCurrentIndex((prev) => (prev + 1) % heroImages.length);
-    }, 3000);
+    }, SLIDE_INTERVAL_MS);
     return () => clearInterval(timer);
   }, []);
 
   return (
     <section className="relative w-[calc(100%-1rem)] md:w-[calc(100%-1.5rem)] min-h-[calc(100svh-72px)] md:min-h-[calc(100vh-2rem)] mx-auto mt-[64px] md:mt-3 bg-black overflow-hidden font-sans rounded-b-3xl md:rounded-b-[40px]">
+      <style dangerouslySetInnerHTML={{ __html: `
+        @keyframes homeHeroKenBurns {
+          0% {
+            transform: scale(1.035);
+          }
+          100% {
+            transform: scale(1.13);
+          }
+        }
+
+        .home-hero-slide {
+          opacity: 0;
+          transform: scale(1.08);
+          filter: blur(2px) saturate(0.96);
+          transition:
+            opacity 1450ms cubic-bezier(0.16, 1, 0.3, 1),
+            filter 1450ms cubic-bezier(0.16, 1, 0.3, 1);
+          will-change: opacity, transform, filter;
+          backface-visibility: hidden;
+          transform-origin: center;
+          pointer-events: none;
+        }
+
+        .home-hero-slide.is-active {
+          opacity: 0.8;
+          filter: blur(0) saturate(1);
+          animation: homeHeroKenBurns ${SLIDE_INTERVAL_MS}ms linear forwards;
+          z-index: 2;
+        }
+
+        @media (min-width: 768px) {
+          .home-hero-slide.is-active {
+            opacity: 0.66;
+          }
+        }
+      `}} />
+
       {/* Animated Background Images */}
       <div className="absolute inset-0 z-0 bg-black">
         {heroImages.map((image, index) => (
@@ -31,17 +77,15 @@ export const HeroSection = () => {
             key={image}
             src={image}
             alt="Bapuji Surgicals Products"
-            className={`absolute inset-0 h-full w-full object-contain p-8 pt-12 pb-36 transition-[opacity,transform] duration-1000 md:object-cover md:p-0 ${
-              currentIndex === index ? 'scale-105 opacity-75 md:opacity-60' : 'scale-100 opacity-0'
-            }`}
+            className={`home-hero-slide absolute inset-0 h-full w-full object-contain p-8 pt-12 pb-36 md:object-cover md:p-0 ${currentIndex === index ? 'is-active' : ''}`}
             loading={index === 0 ? 'eager' : 'lazy'}
             decoding="async"
           />
         ))}
         {/* Soft overlay shade for text legibility */}
-        <div className="absolute inset-0 bg-black/20 z-10 pointer-events-none"></div>
-        <div className="absolute inset-0 bg-gradient-to-r from-black/55 md:from-black/70 to-transparent z-10 pointer-events-none"></div>
-        <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/20 to-transparent z-10 pointer-events-none"></div>
+        <div className="absolute inset-0 bg-black/10 z-10 pointer-events-none"></div>
+        <div className="absolute inset-0 bg-gradient-to-r from-black/40 md:from-black/52 to-transparent z-10 pointer-events-none"></div>
+        <div className="absolute inset-0 bg-gradient-to-t from-black/58 via-black/10 to-transparent z-10 pointer-events-none"></div>
       </div>
       
       {/* Content Container - Adjusted padding to match the reference */}
