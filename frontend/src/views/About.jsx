@@ -619,7 +619,7 @@ const ModernHeritage = () => {
 
         /* Minimal heritage refresh */
         .modern-heritage-section {
-          padding: clamp(72px, 7vw, 110px) 0;
+          padding: clamp(72px, 7vw, 110px) 0 clamp(28px, 3vw, 46px);
           background: #ffffff;
         }
         .modern-heritage-section::before {
@@ -730,10 +730,10 @@ const ModernHeritage = () => {
           gap: 12px;
         }
         .mh-card-num {
-          width: 48px;
-          height: 48px;
-          border-radius: 16px;
-          background: rgba(9, 118, 188, 0.08);
+          width: auto;
+          height: auto;
+          border-radius: 0;
+          background: transparent;
           font-size: 0.95rem;
         }
         .mh-card-icon {
@@ -772,7 +772,7 @@ const ModernHeritage = () => {
 
         @media (max-width: 767px) {
           .modern-heritage-section {
-            padding: 64px 0;
+            padding: 64px 0 28px;
           }
           .mh-container {
             width: min(100% - 32px, 620px);
@@ -1026,105 +1026,172 @@ const About = () => {
 
         /* Pillars Section */
         .pillars-section {
-          max-width: 1200px;
-          margin: 120px auto 0 auto;
-          padding: 0 40px;
+          width: min(97vw, 1640px);
+          margin: 42px auto 0 auto;
+          padding: 0 clamp(18px, 2.5vw, 40px);
           box-sizing: border-box;
+        }
+
+        .pillars-head {
+          display: block;
+          max-width: 850px;
+          margin-bottom: 34px;
+        }
+
+        .pillars-eyebrow {
+          display: block;
+          color: #0976BC;
+          font-size: 0.88rem;
+          font-weight: 800;
+          letter-spacing: 0.18em;
+          text-transform: uppercase;
+          margin-bottom: 14px;
         }
 
         .section-title {
           font-family: var(--font-display), sans-serif;
-          font-size: 1.8rem;
-          font-weight: 700;
-          letter-spacing: -0.02em;
-          margin-bottom: 50px;
+          font-size: clamp(2rem, 2.55vw, 3rem);
+          font-weight: 800;
+          line-height: 1.05;
+          letter-spacing: 0;
+          margin: 0;
           color: #000000;
-          display: flex;
-          align-items: center;
-          gap: 12px;
+          white-space: nowrap;
         }
 
         .section-title::before {
-          content: '';
-          display: inline-block;
-          width: 4px;
-          height: 22px;
-          background-color: #0976BC;
-          border-radius: 2px;
+          display: none;
+        }
+
+        .section-title-line {
+          display: inline;
+          white-space: nowrap;
+        }
+
+        .section-title-line + .section-title-line {
+          margin-left: 0.18em;
+        }
+
+        .pillars-intro {
+          max-width: 720px;
+          margin: 18px 0 0;
+          color: rgba(7, 25, 35, 0.62);
+          font-size: 1rem;
+          line-height: 1.65;
         }
 
         .pillars-grid {
           display: grid;
           grid-template-columns: repeat(3, 1fr);
-          gap: 30px;
+          gap: 18px;
         }
 
         .pillar-card {
-          border: 1px solid rgba(0, 0, 0, 0.05);
-          background-color: #ffffff;
-          border-radius: 20px;
-          padding: 40px;
+          position: relative;
+          min-height: 520px;
+          border: 1px solid rgba(9, 118, 188, 0.11);
+          background: #ffffff;
+          border-radius: 28px;
+          padding: 14px;
           display: flex;
           flex-direction: column;
-          gap: 20px;
-          transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+          overflow: hidden;
+          box-shadow: 0 22px 60px rgba(7, 25, 35, 0.06);
+          transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.45s ease, box-shadow 0.45s ease;
         }
 
         .pillar-card:hover {
-          transform: translateY(-4px);
-          border-color: rgba(9, 118, 188, 0.15);
-          box-shadow: 0 20px 40px rgba(9, 118, 188, 0.03);
+          transform: translateY(-8px);
+          border-color: rgba(9, 118, 188, 0.26);
+          box-shadow: 0 28px 80px rgba(9, 118, 188, 0.12);
         }
 
         .pillar-img-container {
           width: 100%;
-          height: 180px;
-          border-radius: 12px;
+          aspect-ratio: 1.18 / 1;
+          border-radius: 20px;
           overflow: hidden;
-          margin-bottom: 8px;
+          background: #eef7fc;
         }
 
         .pillar-img {
           width: 100%;
           height: 100%;
           object-fit: cover;
-          transition: transform 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
+          filter: saturate(0.95);
+          transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1), filter 0.7s ease;
         }
 
         .pillar-card:hover .pillar-img {
-          transform: scale(1.05);
+          transform: scale(1.07);
+          filter: saturate(1.08);
         }
 
         .pillar-icon-box {
-          background-color: rgba(9, 118, 188, 0.06);
+          position: absolute;
+          top: 26px;
+          left: 26px;
+          background-color: rgba(255, 255, 255, 0.92);
           color: #0976BC;
-          width: 52px;
-          height: 52px;
-          border-radius: 12px;
+          width: 46px;
+          height: 46px;
+          border-radius: 15px;
           display: flex;
           align-items: center;
           justify-content: center;
-          transition: all 0.3s ease;
+          box-shadow: 0 14px 34px rgba(7, 25, 35, 0.12);
+          backdrop-filter: blur(12px);
+          transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.45s ease, color 0.45s ease;
         }
 
         .pillar-card:hover .pillar-icon-box {
           background-color: #0976BC;
           color: #ffffff;
-          transform: scale(1.05);
+          transform: translateY(-2px) scale(1.04);
+        }
+
+        .pillar-content {
+          padding: 26px 12px 12px;
+        }
+
+        .pillar-index {
+          display: inline-flex;
+          margin-bottom: 14px;
+          color: #0976BC;
+          font-size: 0.78rem;
+          font-weight: 800;
+          letter-spacing: 0.14em;
+          text-transform: uppercase;
         }
 
         .pillar-title {
-          font-size: 1.3rem;
-          font-weight: 700;
-          color: #000000;
-          letter-spacing: -0.01em;
+          margin: 0 0 12px;
+          font-size: clamp(1.35rem, 1.6vw, 1.65rem);
+          font-weight: 800;
+          color: #071923;
+          letter-spacing: 0;
         }
 
         .pillar-text {
-          font-size: 1rem;
-          line-height: 1.6;
-          color: rgba(0, 0, 0, 0.65);
+          font-size: 0.98rem;
+          line-height: 1.72;
+          color: rgba(7, 25, 35, 0.62);
           margin: 0;
+        }
+
+        @media (max-width: 1280px) {
+          .pillars-head {
+            max-width: 760px;
+          }
+          .section-title {
+            white-space: normal;
+          }
+          .section-title-line {
+            white-space: normal;
+          }
+          .pillars-intro {
+            max-width: 760px;
+          }
         }
 
         /* Stats Section */
@@ -1172,67 +1239,123 @@ const About = () => {
 
         /* CTA Section */
         .cta-section {
-          max-width: 800px;
-          margin: 120px auto 0 auto;
-          padding: 0 24px;
-          text-align: center;
+          width: min(94vw, 1320px);
+          margin: 92px auto 0 auto;
+          padding: clamp(34px, 5vw, 64px);
+          display: grid;
+          grid-template-columns: minmax(0, 1fr) auto;
+          gap: clamp(28px, 5vw, 76px);
+          align-items: center;
+          border: 1px solid rgba(9, 118, 188, 0.12);
+          border-radius: 30px;
+          background:
+            radial-gradient(circle at 88% 18%, rgba(9, 118, 188, 0.1), transparent 34%),
+            linear-gradient(135deg, rgba(247, 251, 253, 0.98), #ffffff);
+          box-shadow: 0 24px 80px rgba(7, 25, 35, 0.07);
+          position: relative;
+          overflow: hidden;
+        }
+
+        .cta-section::before {
+          content: '';
+          position: absolute;
+          inset: 14px;
+          border-radius: 22px;
+          border: 1px solid rgba(255, 255, 255, 0.7);
+          pointer-events: none;
+        }
+
+        .cta-content {
+          position: relative;
+          z-index: 1;
+        }
+
+        .cta-eyebrow {
+          display: block;
+          margin-bottom: 14px;
+          color: #0976BC;
+          font-size: 0.88rem;
+          font-weight: 800;
+          letter-spacing: 0.18em;
+          text-transform: uppercase;
         }
 
         .cta-title {
           font-family: var(--font-display), sans-serif;
-          font-size: clamp(1.8rem, 4vw, 2.5rem);
+          max-width: 760px;
+          font-size: clamp(2rem, 3.25vw, 3.45rem);
           font-weight: 800;
-          letter-spacing: -0.03em;
-          margin-bottom: 16px;
+          line-height: 1;
+          letter-spacing: 0;
+          margin: 0;
+          color: #071923;
+        }
+
+        .cta-title-line {
+          display: block;
         }
 
         .cta-desc {
-          font-size: 1.1rem;
-          color: rgba(0, 0, 0, 0.55);
-          margin-bottom: 36px;
+          max-width: 650px;
+          font-size: 1.05rem;
+          line-height: 1.7;
+          color: rgba(7, 25, 35, 0.62);
+          margin: 22px 0 0;
         }
 
         .cta-buttons {
           display: flex;
-          gap: 16px;
-          justify-content: center;
+          gap: 14px;
+          justify-content: flex-end;
+          align-items: center;
+          position: relative;
+          z-index: 1;
+          flex-wrap: wrap;
         }
 
         .cta-btn-primary {
-          background-color: #000000;
+          background-color: #0976BC;
           color: #ffffff;
-          padding: 14px 28px;
+          min-height: 54px;
+          padding: 0 26px;
           border-radius: 30px;
-          font-weight: 600;
+          font-weight: 700;
           text-decoration: none;
           display: inline-flex;
           align-items: center;
-          gap: 8px;
-          transition: all 0.2s ease;
+          justify-content: center;
+          gap: 10px;
+          box-shadow: 0 14px 34px rgba(9, 118, 188, 0.22);
+          transition: transform 0.25s ease, background-color 0.25s ease, box-shadow 0.25s ease;
         }
 
         .cta-btn-primary:hover {
-          background-color: #0976BC;
-          transform: translateY(-1px);
+          background-color: #075f99;
+          transform: translateY(-2px);
+          box-shadow: 0 18px 42px rgba(9, 118, 188, 0.28);
         }
 
         .cta-btn-secondary {
-          border: 1px solid rgba(0,0,0,0.1);
-          color: #000000;
-          padding: 14px 28px;
+          min-height: 54px;
+          border: 1px solid rgba(9, 118, 188, 0.18);
+          color: #071923;
+          background: rgba(255, 255, 255, 0.76);
+          padding: 0 26px;
           border-radius: 30px;
-          font-weight: 600;
+          font-weight: 700;
           text-decoration: none;
           display: inline-flex;
           align-items: center;
+          justify-content: center;
           gap: 8px;
-          transition: all 0.2s ease;
+          transition: transform 0.25s ease, background-color 0.25s ease, border-color 0.25s ease;
         }
 
         .cta-btn-secondary:hover {
-          background-color: rgba(0,0,0,0.02);
-          border-color: rgba(0,0,0,0.25);
-          transform: translateY(-1px);
+          background-color: #0976BC;
+          border-color: #0976BC;
+          color: #ffffff;
+          transform: translateY(-2px);
         }
 
         @media (max-width: 1023px) {
@@ -1244,9 +1367,36 @@ const About = () => {
           .about-hero-stats {
             gap: 24px;
           }
+          .pillars-section {
+            width: min(100% - 40px, 900px);
+            padding: 0;
+          }
+          .pillars-head {
+            margin-bottom: 28px;
+          }
+          .pillars-intro {
+            max-width: 720px;
+          }
           .pillars-grid {
-            grid-template-columns: 1fr;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
             gap: 20px;
+          }
+          .pillar-card {
+            min-height: 480px;
+          }
+          .pillar-card:last-child {
+            grid-column: 1 / -1;
+            min-height: 420px;
+          }
+          .pillar-card:last-child .pillar-img-container {
+            aspect-ratio: 2.4 / 1;
+          }
+          .cta-section {
+            grid-template-columns: 1fr;
+            gap: 28px;
+          }
+          .cta-buttons {
+            justify-content: flex-start;
           }
           .stats-container {
             grid-template-columns: 1fr;
@@ -1273,19 +1423,59 @@ const About = () => {
             padding: 40px 24px;
           }
           .pillars-section {
-            padding: 0 24px;
+            width: min(100% - 32px, 560px);
+            padding: 0;
+            margin-top: 82px;
+          }
+          .pillars-head {
+            margin-bottom: 24px;
+          }
+          .section-title {
+            font-size: clamp(2rem, 10vw, 2.75rem);
+            line-height: 1.03;
+          }
+          .section-title-line {
+            white-space: normal;
+          }
+          .pillars-grid {
+            grid-template-columns: 1fr;
+          }
+          .pillar-card,
+          .pillar-card:last-child {
+            grid-column: auto;
+            min-height: 0;
+          }
+          .pillar-img-container,
+          .pillar-card:last-child .pillar-img-container {
+            aspect-ratio: 1.25 / 1;
+          }
+          .pillar-content {
+            padding: 22px 8px 8px;
           }
           .stats-container {
             padding: 0 24px;
           }
           .cta-buttons {
             flex-direction: column;
-            align-items: center;
+            align-items: stretch;
           }
           .cta-btn-primary, .cta-btn-secondary {
             width: 100%;
-            max-width: 280px;
+            max-width: none;
             justify-content: center;
+          }
+          .cta-section {
+            width: min(100% - 32px, 560px);
+            margin-top: 72px;
+            padding: 30px 22px;
+            border-radius: 24px;
+          }
+          .cta-section::before {
+            inset: 10px;
+            border-radius: 18px;
+          }
+          .cta-title {
+            font-size: clamp(2rem, 10vw, 2.8rem);
           }
         @media (max-width: 1023px) {
           .story-split {
@@ -1464,7 +1654,18 @@ const About = () => {
 
       {/* Pillars Section */}
       <section className="pillars-section">
-        <h2 className="section-title">Core Pillars</h2>
+        <div className="pillars-head">
+          <div>
+            <span className="pillars-eyebrow">Core Pillars</span>
+            <h2 className="section-title">
+              <span className="section-title-line">Built around</span>
+              <span className="section-title-line">dependable care</span>
+            </h2>
+          </div>
+          <p className="pillars-intro">
+            Three operating strengths guide how Bapuji Surgicals supports hospitals, distributors, and OEM partners with practical, reliable healthcare supply.
+          </p>
+        </div>
         <motion.div 
           className="pillars-grid"
           variants={containerVariants}
@@ -1482,8 +1683,11 @@ const About = () => {
                 <div className="pillar-icon-box">
                   <Icon size={24} />
                 </div>
-                <h3 className="pillar-title">{pillar.title}</h3>
-                <p className="pillar-text">{pillar.text}</p>
+                <div className="pillar-content">
+                  <span className="pillar-index">{String(idx + 1).padStart(2, '0')}</span>
+                  <h3 className="pillar-title">{pillar.title}</h3>
+                  <p className="pillar-text">{pillar.text}</p>
+                </div>
               </motion.div>
             );
           })}
@@ -1494,10 +1698,16 @@ const About = () => {
 
       {/* Final Call to Action */}
       <section className="cta-section">
-        <h2 className="cta-title">Precision Consumables for Care</h2>
-        <p className="cta-desc">
-          Partner with Bapuji Surgicals for reliable medical dressings, hygiene items, and custom contract manufacturing.
-        </p>
+        <div className="cta-content">
+          <span className="cta-eyebrow">Partner with Bapuji</span>
+          <h2 className="cta-title">
+            <span className="cta-title-line">Precision Consumables</span>
+            <span className="cta-title-line">for Care</span>
+          </h2>
+          <p className="cta-desc">
+            Partner with Bapuji Surgicals for reliable medical dressings, hygiene items, and custom contract manufacturing.
+          </p>
+        </div>
         <div className="cta-buttons">
           <Link href="/catalog" className="cta-btn-primary">
             Explore products
